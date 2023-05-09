@@ -1,4 +1,4 @@
-package com.example.hotelrating.feature.login.view
+package com.example.hotelrating
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

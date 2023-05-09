@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hotelrating.R
+import com.example.hotelrating.utils.Screen
 
 @Composable
 fun Login(navController: NavController) {
@@ -196,7 +197,7 @@ fun loginButton(navController: NavController) {
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp),
             onClick = {
-                navController.navigate("homeScreen")
+                navController.navigate(Screen.HomeScreen.route)
             }) {
             Text("Login")
         }
