@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.hotelrating.feature.homescreen.view.HomeScreen
-import com.example.hotelrating.feature.hotelinfo.view.HotelListScreen
+import com.example.hotelrating.feature.hotelinfo.HotelDetails
 import com.example.hotelrating.feature.login.view.Login
 import com.example.hotelrating.utils.Screen
 
@@ -18,7 +18,10 @@ fun Navigation(){
             Login(navController)
         }
         composable(Screen.HomeScreen.route){
-            HomeScreen()
+            HomeScreen(navController)
+        }
+        composable(Screen.HotelDetailsScreen.route){
+            HotelDetails()
         }
     }
 }

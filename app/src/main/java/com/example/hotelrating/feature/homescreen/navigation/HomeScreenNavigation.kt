@@ -19,14 +19,14 @@ import com.example.hotelrating.utils.Screen
 
 
 @Composable
-fun HomeScreenNavigation(navHostController: NavHostController){
-
-        NavHost(navController = navHostController, startDestination = Screen.HotelInfoScreen.route){
+fun HomeScreenNavigation(mainNavHostController: NavHostController){
+        val homeScreenNavHostController = rememberNavController()
+        NavHost(navController = homeScreenNavHostController, startDestination = Screen.HotelInfoScreen.route){
                 composable(Screen.HotelInfoScreen.route){
-                        HotelListScreen(navController = navHostController)
+                        HotelListScreen(navHostController = homeScreenNavHostController,mainNavHostController)
                 }
                 composable(Screen.SettingsScreen.route){
-                        Settings(navController = navHostController)
+                        Settings(navController = homeScreenNavHostController, mainNavHostController = mainNavHostController)
                 }
         }
 

@@ -15,25 +15,23 @@ import com.example.hotelrating.feature.homescreen.BottomNavItem
 import com.example.hotelrating.feature.homescreen.navigation.HomeScreenNavigation
 import com.example.hotelrating.utils.Screen
 
-@Preview
 @Composable
-fun HomeScreen() {
-   val  navHostController = rememberNavController()
+fun HomeScreen(mainNavHostController: NavHostController) {
     val list = listOf(
         BottomNavItem(
-            clickListener ={ navHostController.navigate(Screen.HotelInfoScreen.route)},
+            Screen.HotelInfoScreen.route,
             R.drawable.baseline_home_24
         ),
         BottomNavItem(
-            clickListener ={ navHostController.navigate(Screen.SettingsScreen.route)},
+            Screen.SettingsScreen.route,
             R.drawable.baseline_settings_24
         )
     )
     Scaffold(
         bottomBar = {
-            BottomView( bottomNavItemList = list )
+            BottomView( bottomNavItemList = list ,mainNavHostController)
         }
     ) {
-        HomeScreenNavigation(navHostController)
+        HomeScreenNavigation(mainNavHostController)
     }
 }
