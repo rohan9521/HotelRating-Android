@@ -1,13 +1,7 @@
 package com.example.hotelrating.feature.homescreen.view
 
-
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hotelrating.R
@@ -27,11 +21,12 @@ fun HomeScreen(mainNavHostController: NavHostController) {
             R.drawable.baseline_settings_24
         )
     )
+    val homeScreenNavHostController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomView( bottomNavItemList = list ,mainNavHostController)
+            BottomView( bottomNavItemList = list ,homeScreenNavHostController)
         }
     ) {
-        HomeScreenNavigation(mainNavHostController)
+        HomeScreenNavigation(mainNavHostController, homeScreenNavHostController)
     }
 }

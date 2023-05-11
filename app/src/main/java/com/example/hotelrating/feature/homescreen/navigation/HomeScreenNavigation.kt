@@ -19,8 +19,8 @@ import com.example.hotelrating.utils.Screen
 
 
 @Composable
-fun HomeScreenNavigation(mainNavHostController: NavHostController){
-        val homeScreenNavHostController = rememberNavController()
+fun HomeScreenNavigation(mainNavHostController: NavHostController,homeScreenNavHostController:NavHostController){
+
         NavHost(navController = homeScreenNavHostController, startDestination = Screen.HotelInfoScreen.route){
                 composable(Screen.HotelInfoScreen.route){
                         HotelListScreen(navHostController = homeScreenNavHostController,mainNavHostController)
