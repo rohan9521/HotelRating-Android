@@ -60,7 +60,7 @@ fun Login(firebaseAuth: FirebaseAuth, setAuthView: (String) -> Unit, mainActivit
     ) {
 
         InputTextField(emailMutableState, errorEmail, "Error", "Name")
-        InputTextField(passwordMutableState, errorPassword, "Error", "Name")
+        InputTextField(passwordMutableState, errorPassword, "Error", "Password")
 
         forgotPassword()
     }

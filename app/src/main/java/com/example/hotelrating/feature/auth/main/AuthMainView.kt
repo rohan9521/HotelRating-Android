@@ -1,5 +1,8 @@
 package com.example.hotelrating.feature.auth.main
 
+import android.graphics.drawable.Drawable
+import androidx.compose.foundation.Image
+import com.example.hotelrating.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,9 +13,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,14 +40,7 @@ fun AuthMainView(firebaseAuth: FirebaseAuth,mainActivity: MainActivity) {
         contentAlignment = Alignment.Center
 
     ) {
-//        Image(
-//            painter = painterResource(id = R.mipmap.ic_launcher_2_foreground),
-//            contentDescription = "",
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .blur(10.dp),
-//            contentScale = ContentScale.FillBounds
-//        )
+
         val colorStops = arrayOf(
             0.2f to Color.Black,
             1f to Color.Green
@@ -64,10 +63,18 @@ fun AuthMainView(firebaseAuth: FirebaseAuth,mainActivity: MainActivity) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .weight(0.3f)
                         .padding(20.dp)
                         .fillMaxWidth()
                 ) {
+                    Image(
+                        painter = painterResource(id=R.mipmap.ic_hotel_icon_foreground),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(200.dp)
+                           ,
+                        contentScale = ContentScale.FillBounds
+                    )
                     Text(
                         text = "Welcome",
                         fontFamily = FontFamily.SansSerif,
