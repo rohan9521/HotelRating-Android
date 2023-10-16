@@ -1,6 +1,7 @@
 package com.example.hotelrating.utils
 
 sealed class Screen(val route:String) {
+    object Auth:Screen(AUTH)
     object SignUpScreen: Screen(SIGN_UP_SCREEN)
     object LoginScreen : Screen(LOGIN_SCREEN)
     object HomeScreen : Screen(HOME_SCREEN)

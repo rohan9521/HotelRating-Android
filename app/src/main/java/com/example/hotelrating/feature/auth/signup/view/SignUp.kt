@@ -6,12 +6,8 @@ import android.content.ContextWrapper
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -36,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hotelrating.MainActivity
 import com.example.hotelrating.R
+import com.example.hotelrating.feature.navigation.LocalCompOfNavController
 import com.example.hotelrating.resusablecomponents.InputTextField
 import com.example.hotelrating.utils.findActivity
 import com.example.hotelrating.viewmodel.MainViewModel
@@ -43,120 +40,82 @@ import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SignUp( firebaseAuth:FirebaseAuth,mainActivity: MainActivity ){
-    val mainNavController = compositionOfMainNavController.current
+fun SignUp(firebaseAuth: FirebaseAuth, mainActivity: MainActivity,setAuthView:(String)->Unit) {
+    val mainNavController = LocalCompOfNavController.current
     var userNameMutableState = remember { mutableStateOf("") }
     var errorUserName = remember { mutableStateOf("") }
 
     var passwordMutableState = remember { mutableStateOf("") }
-    var errorPassword =  remember { mutableStateOf("")}
+    var errorPassword = remember { mutableStateOf("") }
 
     var emailMutableState = remember { mutableStateOf("") }
     var errorEmail = remember { mutableStateOf("") }
 
     var reEnterPasswordMutableState = remember { mutableStateOf("") }
-    var errorReEnterPassword =  remember { mutableStateOf("")}
+    var errorReEnterPassword = remember { mutableStateOf("") }
 
-        Box(
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-
+            .padding(horizontal = 30.dp)
+            .fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(id = R.mipmap.ic_launcher_foreground),
-            contentDescription = "",
-            modifier = Modifier
-                .fillMaxSize()
-                .blur(10.dp),
-            contentScale = ContentScale.Crop
+        InputTextField(userNameMutableState, errorUserName, "Error", "Name")
+        InputTextField(emailMutableState, errorEmail, "Error", "Email")
+        InputTextField(passwordMutableState, errorPassword, "Error", "Password")
+        InputTextField(
+            reEnterPasswordMutableState,
+            errorReEnterPassword,
+            "Error",
+            "Re enter password"
         )
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp)
-                .clip(CutCornerShape(10.dp))
-                .alpha(0.6f)
-                .background(Color.White),
-
-            ) {
-            Column() {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .weight(0.3f)
-                        .padding(20.dp)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Welcome",
-                        fontFamily = FontFamily.SansSerif,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 48.sp,
-                        style = TextStyle(
-                            color = Color.Black,
-                            textAlign = TextAlign.Center
-                        ),
-                    )
-                    Text(
-                        text = "Sign In To rate your Hotel",
-                        fontFamily = FontFamily.SansSerif,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        style = TextStyle(
-                            color = Color.Black,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .weight(0.5f)
-                        .padding(horizontal = 30.dp)
-                        .fillMaxWidth()
-                ) {
-                    InputTextField(userNameMutableState,errorUserName,"Error","Name")
-                    InputTextField(emailMutableState,errorEmail,"Error","Email")
-                    InputTextField(passwordMutableState,errorPassword,"Error","Password")
-                    InputTextField(reEnterPasswordMutableState,errorReEnterPassword,"Error","Re enter password")
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .weight(0.2f)
-                        .fillMaxWidth()
-                ) {
-                    loginButton(mainActivity,mainNavController, firebaseAuth,emailMutableState.value,passwordMutableState.value)
-                }
-            }
-
-
-        }
     }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        loginButton(
+            mainActivity,
+            mainNavController,
+            firebaseAuth,
+            emailMutableState.value,
+            passwordMutableState.value
+        )
+        Row {
+            Text(text = "Already have an account ? ")
+            Text(
+                text = " login",
+                modifier = Modifier.clickable {
+                    setAuthView("Login")
+                }
+            )
+        }
 
+    }
 }
 
 @Composable
 fun loginButton(
     mainActivity: MainActivity,
-    navController: NavController,
-    firebaseAuth:FirebaseAuth,
-    email:String,
-    password:String
+    navController: NavController?,
+    firebaseAuth: FirebaseAuth,
+    email: String,
+    password: String
 ) {
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp),
             onClick = {
-                firebaseAuth.createUserWithEmailAndPassword(email,password)
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(mainActivity) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
@@ -176,7 +135,7 @@ fun loginButton(
             Text("Sign up")
         }
 
-        Log.d("test","LoginButton")
+        Log.d("test", "LoginButton")
     }
 
 }
