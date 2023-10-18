@@ -32,7 +32,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HotelListScreen(
-    navHostController: NavHostController,
     mainNavHostController: NavHostController,
     mainViewModel: MainViewModel = koinViewModel()
 ) {
@@ -133,7 +132,7 @@ fun hotelInfoListView(
                 scope.launch(Dispatchers.IO) {
                     mainViewModel.hotelLD.emit(hotel)
                 }
-                navHostController.navigate(Screen.HotelDetailsScreen.route)
+                navHostController.navigate(Screen.Home.HotelDetailsScreen.route)
 
             }
         }

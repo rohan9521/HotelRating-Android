@@ -4,36 +4,43 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.hotelrating.R
 import com.example.hotelrating.feature.home.homescreen.BottomNavItem
+import com.example.hotelrating.feature.navigation.HomeScreenNavigation
+import com.example.hotelrating.feature.navigation.LocalCompOfNavController
 import com.example.hotelrating.utils.Screen
 
 @Composable
-@Preview
-fun HomeScreen(mainNavHostController: NavHostController = rememberNavController()) {
+fun HomeScreen() {
+
     val list = listOf(
         BottomNavItem(
-            Screen.HotelInfoScreen.route,
+            Screen.Home.HotelFeed.route,
             R.drawable.baseline_home_24
         ),
         BottomNavItem(
-            Screen.SettingsScreen.route,
-            R.drawable.baseline_settings_24
+            Screen.Home.Explore.route,
+            R.drawable.ic_outline_explore_24
+        ),
+        BottomNavItem(
+            Screen.Home.Profile.route,
+            R.drawable.ic_baseline_person_24
         )
     )
-    val homeScreenNavHostController = rememberNavController()
-    val compositionNavController = compositionLocalOf { homeScreenNavHostController }
+    val navHostController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomView( bottomNavItemList = list ,homeScreenNavHostController)
+            BottomView(bottomNavItemList = list, navHostController)
         }
     ) {
-        CompositionLocalProvider(compositionNavController provides homeScreenNavHostController ) {
-
-        }
-
+        HomeScreenNavigation(navHostController)
     }
+
 }

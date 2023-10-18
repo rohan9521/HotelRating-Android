@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -17,25 +18,20 @@ import com.example.hotelrating.feature.home.hotelinfo.view.HotelDetails
 import com.example.hotelrating.utils.Screen
 import com.google.firebase.auth.FirebaseAuth
 
-val LocalCompOfNavController = compositionLocalOf<NavController?> { null }
+val LocalCompOfNavController = compositionLocalOf<NavHostController?> { null }
+
 @Composable
-fun Navigation(mainActivity: MainActivity , firebaseAuth: FirebaseAuth){
-    val navController = rememberNavController()
+fun Navigation(mainActivity: MainActivity, firebaseAuth: FirebaseAuth) {
+    val navHostController = rememberNavController()
 
-    CompositionLocalProvider(LocalCompOfNavController provides navController) {
-        NavHost(navController =navController, startDestination = Screen.Auth.route ){
-            composable(Screen.Auth.route){
-               AuthMainView(firebaseAuth = firebaseAuth,mainActivity)
+    CompositionLocalProvider(LocalCompOfNavController provides navHostController) {
+        NavHost(navController = navHostController, startDestination = Screen.Auth.route) {
+            composable(Screen.Auth.route) {
+                AuthMainView(firebaseAuth = firebaseAuth, mainActivity)
             }
-            navigation(startDestination = Screen.HomeScreen.route, route="home" ){
-                composable(Screen.HomeScreen.route){
-                    HomeScreen()
-                }
-                composable(Screen.HotelDetailsScreen.route){
-                    HotelDetails()
-                }
+            composable(Screen.Home.route) {
+                HomeScreen()
             }
-
 
         }
     }

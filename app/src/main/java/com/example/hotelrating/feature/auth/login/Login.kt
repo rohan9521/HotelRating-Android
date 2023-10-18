@@ -144,9 +144,9 @@ fun loginButton(
                         }
                     }
 
-//                navController.navigate(Screen.HomeScreen.route){
-//                    popUpTo(Screen.LoginScreen.route){inclusive = true}
-//                }
+                navController?.navigate(Screen.Home.route){
+                    popUpTo(Screen.Auth.route){inclusive = true}
+                }
 
                 Log.d("test", "LoginButton")
             }) {

@@ -1,4 +1,4 @@
-package com.example.hotelrating.feature.settings.view
+package com.example.hotelrating.feature.home.homescreen.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,19 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.hotelrating.R
 
 
 @Composable
-fun Settings(navController: NavController,mainNavHostController: NavHostController) {
+fun Profile() {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

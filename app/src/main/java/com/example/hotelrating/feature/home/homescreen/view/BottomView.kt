@@ -19,12 +19,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.hotelrating.R
 import com.example.hotelrating.feature.home.homescreen.BottomNavItem
+import com.example.hotelrating.feature.navigation.LocalCompOfNavController
 import com.example.hotelrating.utils.Screen
 
 
 @Composable
-fun BottomView(bottomNavItemList:List<BottomNavItem>, navHostController: NavHostController) {
-    val backStackEntry = navHostController.currentBackStackEntryAsState()
+fun BottomView(bottomNavItemList:List<BottomNavItem>,navHostController: NavHostController) {
+
+    val backStackEntry = navHostController?.currentBackStackEntryAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,11 +38,11 @@ fun BottomView(bottomNavItemList:List<BottomNavItem>, navHostController: NavHost
         bottomNavItemList.forEach{item->
             item.isSelected = backStackEntry?.value?.destination?.route == item.route
             Image(painterResource(id =item.icon),"BottomNavItem", modifier = Modifier
-                .height(20.dp)
-                .width(20.dp)
+                .height(30.dp)
+                .width(30.dp)
                 .clickable {
                     if(!item.isSelected)
-                        navHostController.navigate(item.route)
+                        navHostController?.navigate(item.route)
                 })
         }
     }
