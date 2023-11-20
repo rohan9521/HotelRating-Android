@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id "com.google.protobuf" version "0.8.17"
 }
 
 android {
@@ -42,6 +43,24 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    protobuf {
+        protoc {
+            artifact = "com.google.protobuf:protoc:21.7"
+        }
+
+        // Generates the java Protobuf-lite code for the Protobufs in this project. See
+        // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+        // for more information.
+        generateProtoTasks {
+            all().each { task ->
+                task.builtins {
+                    java {
+                        option 'lite'
+                    }
+                }
+            }
         }
     }
 }
@@ -98,4 +117,9 @@ dependencies {
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
     implementation("com.google.firebase:firebase-auth-ktx")
+
+
+    //Proto DataStore
+    implementation  "androidx.datastore:datastore:1.0.0"
+    implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
 }
